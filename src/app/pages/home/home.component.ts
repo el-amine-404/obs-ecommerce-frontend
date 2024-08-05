@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { HeroCarouselComponent } from './hero-carousel/hero-carousel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [HeroCarouselComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
