@@ -4,19 +4,22 @@
     <div class="row">
 
       <div class="col-md-4 pt-5">
-        <h2 class="h2 text-success border-bottom pb-3 border-light logo">OBS Shop</h2>
+        <h2 class="h2 text-success border-bottom pb-3 border-light logo">{{OBS_CONTACT_INFORMATIONS.TITLE}}</h2>
         <ul class="list-unstyled text-light footer-link-list">
           <li>
             <i class="fas fa-map-marker-alt fa-fw"></i>
-            Technopolis Rabatshore B6, Sala Al Jadida 11100
+            <a class="text-decoration-none" [href]="OBS_CONTACT_INFORMATIONS.MAP_ADDRESS.LINK" target="_blank">
+              {{OBS_CONTACT_INFORMATIONS.MAP_ADDRESS.TEXT}}</a>
           </li>
           <li>
             <i class="fa fa-phone fa-fw"></i>
-            <a class="text-decoration-none" href="tel:06-66-66-66-66"> 06-66-66-66-66</a>
+            <a class="text-decoration-none" [href]="OBS_CONTACT_INFORMATIONS.TELEPHONE.LINK">
+              {{OBS_CONTACT_INFORMATIONS.TELEPHONE.TEXT}}</a>
           </li>
           <li>
             <i class="fa fa-envelope fa-fw"></i>
-            <a class="text-decoration-none" href="mailto:orange@orange.com"> orange&#64;orange.com</a>
+            <a class="text-decoration-none" [href]="OBS_CONTACT_INFORMATIONS.MAIL_ADDRESS.LINK">
+              {{OBS_CONTACT_INFORMATIONS.MAIL_ADDRESS.TEXT}}</a>
           </li>
         </ul>
       </div>
