@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ROUTES } from '../../../core/constants/routes';
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +10,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+    // the constants
+    public ROUTES = ROUTES;
 
 }

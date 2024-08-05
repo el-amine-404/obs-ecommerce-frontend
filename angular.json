@@ -25,11 +25,19 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/templatemo.css",
+              "src/assets/css/custom.css",
+              "src/assets/css/fontawesome.min.css",
               "src/styles.css"
             ],
-            "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": [
+              "src/assets/js/jquery-1.11.0.min.js",
+              "src/assets/js/jquery-migrate-1.2.1.min.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/templatemo.js",
+              "src/assets/js/custom.js"
+            ]
           },
           "configurations": {
             "production": {
