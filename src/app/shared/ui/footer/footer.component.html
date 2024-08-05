@@ -27,13 +27,9 @@
       <div class="col-md-4 pt-5">
         <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
         <ul class="list-unstyled text-light footer-link-list">
-          <li><a class="text-decoration-none" href="#">Laptop</a></li>
-          <li><a class="text-decoration-none" href="#">Mobile</a></li>
-          <li><a class="text-decoration-none" href="#">Tablet</a></li>
-          <li><a class="text-decoration-none" href="#">Desktop</a></li>
-          <li><a class="text-decoration-none" href="#">Printer</a></li>
-          <li><a class="text-decoration-none" href="#">Scanner</a></li>
-          <li><a class="text-decoration-none" href="#">Camera</a></li>
+          @for (category of categories; track $index){
+          <li><a class="text-decoration-none" [href]=category>{{category}}</a></li>
+          }
         </ul>
       </div>
 
