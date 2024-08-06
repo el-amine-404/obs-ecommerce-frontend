@@ -14,6 +14,7 @@ export class ProductService {
   public API_CONSTANTS = APIConstant
 
   #productUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_ALL}`;
+  #productByIdUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_ALL}`;
 
   #http = inject(HttpClient);
 
@@ -21,5 +22,9 @@ export class ProductService {
 
   getAll(): Observable<Product[]> {
     return this.#http.get<Product[]>(this.#productUrl);
+  }
+
+  getById(id: string): Observable<Product> {
+    return this.#http.get<Product>(`${this.#productByIdUrl}/${id}`);
   }
 }
