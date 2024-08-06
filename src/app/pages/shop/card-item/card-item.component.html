@@ -1,6 +1,6 @@
-<div class="row">
-  <!-- Page size selection dropdown -->
-  <div class="mb-3">
+<!-- Page size selection dropdown -->
+<div class="row mb-3">
+  <div class="col-12">
     <label for="pageSize" class="form-label">Items per page:</label>
     <select id="pageSize" class="form-select" (change)="onPageSizeChange($event)">
       @for (size of pageSizeOptions; track $index) {
@@ -37,10 +37,14 @@
     No products are available.
   </div>
   }
-  <!-- Pagination controls using ngx-pagination -->
-  <pagination-controls (pageChange)="currentPage = $event" [maxSize]="5" [directionLinks]="true" [autoHide]="true"
-    [responsive]=true previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
-    screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
-  </pagination-controls>
+</div>
 
+<!-- Pagination controls -->
+<div class="row">
+  <div class="col-12 text-center">
+    <pagination-controls (pageChange)="currentPage = $event" [maxSize]="5" [directionLinks]="true" [autoHide]="true"
+      [responsive]="true" previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
 </div>
