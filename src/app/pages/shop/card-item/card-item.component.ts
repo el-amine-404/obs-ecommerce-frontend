@@ -5,11 +5,12 @@ import { ROUTES } from '../../../core/constants/routes';
 import { CurrencyPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-card-item',
   standalone: true,
-  imports: [RouterLink ,CurrencyPipe],
+  imports: [RouterLink ,CurrencyPipe, NgxPaginationModule],
   templateUrl: './card-item.component.html',
   styleUrls: ['./card-item.component.css']
 })
@@ -19,6 +20,8 @@ export class CardItemComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   private productService = inject(ProductService);
   private categorySubscription: Subscription = new Subscription();
+  currentPage: number = 1;
+  pageSize: number = 12;
 
   ngOnInit(): void {
     this.loadProducts();
@@ -27,6 +30,7 @@ export class CardItemComponent implements OnInit, OnDestroy {
     this.categorySubscription.add(
       this.productService.categories$.subscribe(() => {
         console.log("Categories changed. Reloading products...");
+        this.currentPage = 1; // Reset to first page on category change
         this.loadProducts();
       })
     );
@@ -48,4 +52,9 @@ export class CardItemComponent implements OnInit, OnDestroy {
       error: (error) => console.log('Error fetching products:', error)
     });
   }
+
+  get pageSizeOptions(): number[] {
+    return [10, 20, 50];
+  }
+
 }

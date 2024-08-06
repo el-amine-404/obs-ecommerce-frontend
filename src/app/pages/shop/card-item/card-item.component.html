@@ -1,5 +1,5 @@
 <div class="row">
-  @for (product of products; track product.id) {
+  @for (product of products | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; track product.id) {
   <div class="col-md-4">
     <div class="card mb-4 product-wap rounded-0">
       <div class="card rounded-0">
@@ -25,4 +25,10 @@
     No products are available.
   </div>
   }
+  <!-- Pagination controls using ngx-pagination -->
+  <pagination-controls (pageChange)="currentPage = $event" [maxSize]="5" [directionLinks]="true" [autoHide]="true"
+    [responsive]=true previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+  </pagination-controls>
+
 </div>
