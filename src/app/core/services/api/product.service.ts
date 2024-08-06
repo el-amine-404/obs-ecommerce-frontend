@@ -10,32 +10,30 @@ import { Product } from '../../model/product.entity';
 })
 export class ProductService {
 
-  // constants
-  public API_CONSTANTS = APIConstant
+  public API_CONSTANTS = APIConstant;
 
-  private categorySubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  public category$: Observable<string | null> = this.categorySubject.asObservable();
+  private categoriesSubject: BehaviorSubject<Set<string>> = new BehaviorSubject<Set<string>>(new Set());
+  public categories$: Observable<Set<string>> = this.categoriesSubject.asObservable();
 
+  private productUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_ALL}`;
 
-  #productUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_ALL}`;
-
-  #http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   constructor() {}
 
   getAll(): Observable<Product[]> {
-    const category = this.categorySubject.value;
-    const url = category
-      ? `${this.#productUrl}?category=${category}`
-      : this.#productUrl;
-    return this.#http.get<Product[]>(url);
+    const categories = Array.from(this.categoriesSubject.value);
+    const url = categories.length
+      ? `${this.productUrl}?category=${categories.join(',')}`
+      : this.productUrl;
+    return this.http.get<Product[]>(url);
   }
 
   getById(id: string): Observable<Product> {
-    return this.#http.get<Product>(`${this.#productUrl}/${id}`);
+    return this.http.get<Product>(`${this.productUrl}/${id}`);
   }
 
-  setCategory(data: any) {
-    this.categorySubject.next(data);
-}
+  setCategories(categories: Set<string>): void {
+    this.categoriesSubject.next(categories);
+  }
 }

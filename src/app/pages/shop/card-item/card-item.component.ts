@@ -18,24 +18,27 @@ export class CardItemComponent implements OnInit, OnDestroy {
   public ROUTES = ROUTES;
   products: Product[] = [];
   private productService = inject(ProductService);
-  private categorySubscription!: Subscription;
-  private currentCategory: string | null = null;
+  private categorySubscription: Subscription = new Subscription();
 
   ngOnInit(): void {
     this.loadProducts();
-    this.categorySubscription = this.productService.category$.subscribe(category => {
-      if (category !== this.currentCategory) {
-        console.log("Category changed. Reloading products...");
-        this.currentCategory = category;
+
+    // Subscribe to category changes
+    this.categorySubscription.add(
+      this.productService.categories$.subscribe(() => {
+        console.log("Categories changed. Reloading products...");
         this.loadProducts();
-      }});
+      })
+    );
   }
 
   ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
     this.categorySubscription.unsubscribe();
   }
 
   loadProducts(): void {
+    console.log("Fetching products...");
     this.productService.getAll().subscribe({
       next: (products: Product[]) => {
         this.products = products;
