@@ -22,6 +22,7 @@ export class CardItemComponent implements OnInit, OnDestroy {
   private categorySubscription: Subscription = new Subscription();
   currentPage: number = 1;
   pageSize: number = 12;
+  pageSizeOptions: number[] = [10, 20, 30, 50];
 
   ngOnInit(): void {
     this.loadProducts();
@@ -53,8 +54,10 @@ export class CardItemComponent implements OnInit, OnDestroy {
     });
   }
 
-  get pageSizeOptions(): number[] {
-    return [10, 20, 50];
+  onPageSizeChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    this.pageSize = +target.value; // Convert the value to a number
+    this.currentPage = 1; // Reset to first page on page size change
   }
 
 }

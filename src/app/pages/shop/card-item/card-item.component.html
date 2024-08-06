@@ -1,4 +1,16 @@
 <div class="row">
+  <!-- Page size selection dropdown -->
+  <div class="mb-3">
+    <label for="pageSize" class="form-label">Items per page:</label>
+    <select id="pageSize" class="form-select" (change)="onPageSizeChange($event)">
+      @for (size of pageSizeOptions; track $index) {
+      <option [value]="size">{{ size }}</option>
+      }
+    </select>
+  </div>
+</div>
+
+<div class="row">
   @for (product of products | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; track product.id) {
   <div class="col-md-4">
     <div class="card mb-4 product-wap rounded-0">
