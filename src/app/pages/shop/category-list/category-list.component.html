@@ -1,6 +1,6 @@
 <h1 class="h2 pb-4">Categories</h1>
 <ul class="list-unstyled templatemo-accordion">
   @for (category of categories; track $index) {
-  <li><a class="text-decoration-none" [href]=category>{{category}}</a></li>
+  <li><a class="text-decoration-none" [routerLink]="[]" (click)="onCategoryClick(category)">{{category}}</a></li>
   }
 </ul>

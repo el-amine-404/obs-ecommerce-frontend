@@ -1,39 +1,48 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from '../../../core/services/api/product.service';
 import { Product } from '../../../core/model/product.entity';
 import { ROUTES } from '../../../core/constants/routes';
-import { RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card-item',
   standalone: true,
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink ,CurrencyPipe],
   templateUrl: './card-item.component.html',
-  styleUrl: './card-item.component.css'
+  styleUrls: ['./card-item.component.css']
 })
-export class CardItemComponent implements OnInit {
+export class CardItemComponent implements OnInit, OnDestroy {
 
-      // the constants
-      public ROUTES = ROUTES;
-
-  private productService = inject(ProductService);
+  public ROUTES = ROUTES;
   products: Product[] = [];
+  private productService = inject(ProductService);
+  private categorySubscription!: Subscription;
+  private currentCategory: string | null = null;
 
   ngOnInit(): void {
     this.loadProducts();
+    this.categorySubscription = this.productService.category$.subscribe(category => {
+      if (category !== this.currentCategory) {
+        console.log("Category changed. Reloading products...");
+        this.currentCategory = category;
+        this.loadProducts();
+      }});
   }
 
+  ngOnDestroy(): void {
+    this.categorySubscription.unsubscribe();
+  }
 
   loadProducts(): void {
     this.productService.getAll().subscribe({
-      next: (products: Product[]) =>{
+      next: (products: Product[]) => {
         this.products = products;
         console.log(this.products);
         console.log("Products fetched successfully");
       },
-      error: (error) => console.log('Error fetching users:', error)
+      error: (error) => console.log('Error fetching products:', error)
     });
   }
-
 }
