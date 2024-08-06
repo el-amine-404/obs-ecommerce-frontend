@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../core/model/product.entity';
 import { ProductService } from '../../../core/services/api/product.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-shop-single',
+  standalone: true,
+  imports: [CurrencyPipe],
   templateUrl: './shop-single.component.html',
   styleUrls: ['./shop-single.component.css']
 })

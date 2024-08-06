@@ -3,11 +3,12 @@ import { ProductService } from '../../../core/services/api/product.service';
 import { Product } from '../../../core/model/product.entity';
 import { ROUTES } from '../../../core/constants/routes';
 import { RouterLink } from '@angular/router';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-card-item',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CurrencyPipe],
   templateUrl: './card-item.component.html',
   styleUrl: './card-item.component.css'
 })

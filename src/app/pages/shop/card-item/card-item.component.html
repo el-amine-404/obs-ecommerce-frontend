@@ -16,7 +16,7 @@
       </div>
       <div class="card-body">
         <a [href]=product.id class="h3 text-decoration-none">{{product.title}}</a>
-        <p class="text-center mb-0">{{product.price}} DH</p>
+        <p class="text-center mb-0">{{product.price | currency:'MAD'}}</p>
       </div>
     </div>
   </div>
