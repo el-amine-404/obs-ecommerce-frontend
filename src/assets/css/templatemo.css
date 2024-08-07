@@ -32,6 +32,31 @@ Table of contents
   --clr-orange600: #ea580c;
 }
 
+/* Custom CSS for the dropdown menu */
+.navbar .dropdown-menu {
+  right: 0; /* Align the dropdown to the right */
+  left: auto; /* Override Bootstrap's left alignment */
+  margin-top: 10px;
+}
+
+.dropdown-menu-end {
+  transform: translateX(-20px); /* Adjust horizontal position */
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px; /* Add padding for better appearance */
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa; /* Change background on hover */
+}
+
+.nav-icon {
+  cursor: pointer;
+}
+
 /* Typography */
 body,
 ul,
