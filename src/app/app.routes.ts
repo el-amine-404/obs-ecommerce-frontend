@@ -6,6 +6,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { ShopSingleComponent } from './pages/shop/shop-single/shop-single.component';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: ROUTES.HOME.PATH, pathMatch: 'full'},
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: ROUTES.SHOP_SINGLE.PATH ,title:ROUTES.SHOP_SINGLE.TITLE, component: ShopSingleComponent},
   { path: ROUTES.CART.PATH ,title:ROUTES.CART.TITLE, component: CartComponent},
   { path: ROUTES.CONTACT.PATH ,title:ROUTES.CONTACT.TITLE, component: ContactComponent},
+  { path: ROUTES.LOGIN.PATH ,title:ROUTES.LOGIN.TITLE, component: LoginComponent}
 ];
