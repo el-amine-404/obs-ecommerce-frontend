@@ -39,9 +39,11 @@ export class AuthService {
     this.isAuthenticated = true;
     this.accessToken = data['access-token'];
 
-    let decodedJwt = jwtDecode(this.accessToken);
+    // i have added any type to jwtDecode in order to avoid compilation error
+    // another approach is to create type/interface with the properties that we need
+    let decodedJwt = jwtDecode<any>(this.accessToken);
 
     this.username = decodedJwt.sub;
-    this.roles = decodedJwt.sub;
+    this.roles = decodedJwt.scope;
   }
 }
