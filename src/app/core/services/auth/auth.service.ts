@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
+import { LocalStorageService } from '../storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
   accessToken !: string;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   public login(username: string, password: string){
 
@@ -36,6 +37,8 @@ export class AuthService {
   loadProfile(data: any){
     this.isAuthenticated = true;
     this.accessToken = data['access-token'];
+
+    this.localStorageService.setItem('access-token', this.accessToken);
 
     // i have added any type to jwtDecode in order to avoid compilation error
     // another approach is to create type/interface with the properties that we need
