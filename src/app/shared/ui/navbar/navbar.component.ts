@@ -17,4 +17,8 @@ export class NavbarComponent {
 
     constructor(public authService: AuthService) {}
 
+    handleLogout() {
+        this.authService.logout();
+    }
+
 }

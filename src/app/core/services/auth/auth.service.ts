@@ -37,6 +37,15 @@ export class AuthService {
     return this.http.post('http://localhost:8082/auth/login',JSON.stringify(body), options);
   }
 
+  logout(){
+    this.isAuthenticated = false;
+    this.accessToken = '';
+    this.username = undefined;
+    this.roles = undefined;
+    this.localStorageService.removeItem('access-token');
+    this.router.navigateByUrl('/login');
+  }
+
   loadProfile(data: any){
     this.isAuthenticated = true;
     this.accessToken = data['access-token'];
