@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 import { LocalStorageService } from '../storage/local-storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,9 @@ export class AuthService {
   accessToken !: string;
 
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
+  constructor(private http: HttpClient,
+              private localStorageService: LocalStorageService,
+              private router: Router) { }
 
   public login(username: string, password: string){
 
@@ -46,5 +49,13 @@ export class AuthService {
 
     this.username = decodedJwt.sub;
     this.roles = decodedJwt.scope;
+  }
+
+  loadJwtFromLocalStorage(){
+    let token = this.localStorageService.getItem('access-token');
+    if (token){
+      this.loadProfile({ 'access-token': token });
+      this.router.navigateByUrl('/home');
+    }
   }
 }

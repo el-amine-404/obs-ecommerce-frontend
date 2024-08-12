@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./shared/ui/navbar/navbar.component";
 import { FooterComponent } from "./shared/ui/footer/footer.component";
+import { AuthService } from './core/services/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,12 @@ import { FooterComponent } from "./shared/ui/footer/footer.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'obs-ecommerce-frontend';
+
+  constructor(private authService:AuthService) {}
+
+  ngOnInit() {
+    this.authService.loadJwtFromLocalStorage();
+  }
 }
