@@ -30,9 +30,7 @@ export class AuthService {
       password: password
     };
 
-    let params = new HttpParams().set('username', username).set('password', password);
-
-    return this.http.post('http://localhost:8082/auth/login', body, options);
+    return this.http.post('http://localhost:8082/auth/login',JSON.stringify(body), options);
   }
 
   loadProfile(data: any){
