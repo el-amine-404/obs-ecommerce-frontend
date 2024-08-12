@@ -1,42 +1,47 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://your-api-url.com/api/auth'; // Replace with your actual API URL
 
-  constructor(private http: HttpClient) {}
+  isAuthenticated : boolean = false;
+  roles : any;
+  username : any;
+  accessToken !: string;
 
-  login(username: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
-      tap(response => {
-        if (response.token) {
-          this.setToken(response.token);
-        }
-      })
-    );
+
+  constructor(private http: HttpClient) { }
+
+  public login(username: string, password: string){
+
+    // let options = {headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')}
+    // let params = new HttpParams().set('username', username).set('password', password);
+
+    let options = {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    }
+
+    let body = {
+      username: username,
+      password: password
+    };
+
+    let params = new HttpParams().set('username', username).set('password', password);
+
+    return this.http.post('http://localhost:8082/auth/login', body, options);
   }
 
-  register(username: string, email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, { username, email, password });
-  }
+  loadProfile(data: any){
+    this.isAuthenticated = true;
+    this.accessToken = data['access-token'];
 
-  logout() {
-    localStorage.removeItem('token');
-  }
+    let decodedJwt = jwtDecode(this.accessToken);
 
-  setToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+    this.username = decodedJwt.sub;
+    this.roles = decodedJwt.sub;
   }
 }
