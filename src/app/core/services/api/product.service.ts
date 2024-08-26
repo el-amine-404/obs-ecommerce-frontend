@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { APIConstant } from '../../constants/APIconstants';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Product } from '../../model/product.entity';
 
@@ -35,5 +35,12 @@ export class ProductService {
 
   setCategories(categories: Set<string>): void {
     this.categoriesSubject.next(categories);
+  }
+
+  addItemToCart(cartId: number, productId: any, quantity: number): Observable<any> {
+    // const url = `${this.apiUrl}/${cartId}/add-item?productId=${productId}&quantity=${quantity}`;
+    // return this.http.post(url, {});
+    let params = new HttpParams().set('productId', productId).set('quantity', quantity);
+    return this.http.post<any>(`${environment.apiURL}/shopping-cart/${cartId}/add-item`,null, {params});
   }
 }
