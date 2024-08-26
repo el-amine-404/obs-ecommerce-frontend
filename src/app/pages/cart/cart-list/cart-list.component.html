@@ -1,0 +1,48 @@
+<div class="container mt-5">
+  <h2 class="pb-3"><i class="fas fa-shopping-cart"></i> My Shopping Carts</h2>
+  @if (shoppingCarts.length === 0) {
+  <p>No shopping carts found.</p>
+  } @else {
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col"><i class="fas fa-list"></i> Cart ID</th>
+        <th scope="col"><i class="fas fa-calendar-alt"></i> Creation Date</th>
+        <th scope="col"><i class="fas fa-dollar-sign"></i> Total Price</th>
+        <th scope="col"><i class="fas fa-info-circle"></i> Status</th>
+        <th scope="col"><i class="fas fa-cogs"></i> Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (cart of shoppingCarts; track $index) {
+      <tr>
+        <td>{{ cart.id }}</td>
+        <td>{{ cart.creationDate | date }}</td>
+        <td>{{ cart.totalPrice | currency:'MAD ' }}</td>
+        <td>
+          <span [ngClass]="{
+                'badge bg-success': cart.status === 'CONFIRMED',
+                'badge bg-danger': cart.status === 'SUSPENDED',
+                'badge bg-warning': cart.status === 'NEW'
+              }">
+            {{ cart.status }}
+          </span>
+        </td>
+        <td>
+          <button class="btn btn-primary btn-sm me-2" (click)="viewCartDetails(cart.id)">
+            <i class="fas fa-eye"></i> View
+          </button>
+          <button class="btn btn-success btn-sm me-2" (click)="confirmCart(cart.id)"
+            [disabled]="cart.status === 'CONFIRMED'">
+            <i class="fas fa-check-circle"></i> Send to check
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="suspendCart(cart.id)" [disabled]="cart.status === 'SUSPENDED'">
+            <i class="fas fa-times-circle"></i> Suspend
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

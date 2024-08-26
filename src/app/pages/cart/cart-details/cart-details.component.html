@@ -1,0 +1,65 @@
+<div class="container m-5">
+  <div class="row">
+    <h2>Shopping Cart Details</h2>
+    <div class="col-4">
+
+      <table class="table">
+        <tbody>
+
+          <tr>
+            <th scope="row">Cart ID</th>
+            <td>{{ cartDetails.id }}</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Total Price</th>
+            <td>{{ cartDetails.totalPrice | currency:'MAD ' }}</td>
+          </tr>
+
+          <tr>
+            <th scope="row">Statut</th>
+            <td> <span [ngClass]="{
+              'badge bg-success': cartDetails.status === 'CONFIRMED',
+              'badge bg-danger': cartDetails.status === 'SUSPENDED',
+              'badge bg-warning': cartDetails.status === 'NEW'
+            }">
+                {{ cartDetails.status }}
+              </span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  @if (cartDetails.length === 0) {
+  <p>Shopping cart is empty</p>
+  } @else {
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th scope="col"><i class="fas fa-image"></i> Image</th>
+        <th scope="col"><i class="fas fa-tag"></i> Product</th>
+        <th scope="col"><i class="fas fa-cube"></i> Quantity</th>
+        <th scope="col"><i class="fas fa-dollar-sign"></i> Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (cartItem of cartDetails.shoppingCartItems; track $index) {
+      <tr>
+        <td><img [src]="cartItem.product.image" alt="{{ cartItem.product.title }}" class="img-thumbnail" width="100">
+        </td>
+        <td>{{ cartItem.product.title }}</td>
+        <td>{{ cartItem.quantity }}</td>
+        <td>{{ cartItem.price | currency:'MAD ' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+  <button class="btn btn-secondary mt-3" (click)="goBack()"><i class="fas fa-arrow-left"></i> Back to Cart
+    List</button>
+
+  <div *ngIf="!cartDetails">
+    <p>Loading cart details...</p>
+  </div>
+</div>

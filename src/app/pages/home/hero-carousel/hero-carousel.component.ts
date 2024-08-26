@@ -11,7 +11,7 @@ export class HeroCarouselComponent {
 
   slides = [
     {
-      image: './assets/img/banner_img_01.jpg',
+      image: './assets/img/packs4.png',
       title: 'OBS Shop',
       heading: 'Welcome to OBS Shop',
       text: 'OBS Shop is a premier ecommerce platform where businesses can find and purchase the perfect pack of products to meet their needs.'

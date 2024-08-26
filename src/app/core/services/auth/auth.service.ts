@@ -14,6 +14,7 @@ export class AuthService {
   isAuthenticated : boolean = false;
   roles : any;
   username : any;
+  agentId: any;
   accessToken !: string;
 
 
@@ -44,12 +45,13 @@ export class AuthService {
     this.accessToken = '';
     this.username = undefined;
     this.roles = undefined;
+    this.agentId = undefined;
+    this.localStorageService.removeItem('access-token');
+    this.router.navigateByUrl('/login');
     this.toastr.success('Logout', 'successfully logout', {
       progressBar: true,
       closeButton: true,
     })
-    this.localStorageService.removeItem('access-token');
-    this.router.navigateByUrl('/login');
   }
 
   loadProfile(data: any){
@@ -64,6 +66,7 @@ export class AuthService {
 
     this.username = decodedJwt.sub;
     this.roles = decodedJwt.scope;
+    this.agentId = decodedJwt.agentId;
   }
 
   loadJwtFromLocalStorage(){
@@ -73,4 +76,9 @@ export class AuthService {
       this.router.navigateByUrl('/home');
     }
   }
+
+    // Method to get the user ID
+    getLoggedInAgentId(): any {
+      return this.agentId;
+    }
 }
