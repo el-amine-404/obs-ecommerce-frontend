@@ -29,6 +29,7 @@
               "src/assets/css/templatemo.css",
               "src/assets/css/custom.css",
               "src/assets/css/fontawesome.min.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": [
