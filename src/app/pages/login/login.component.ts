@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,10 @@ export class LoginComponent implements OnInit{
 
   formLogin!: FormGroup;
 
-  constructor(private fb : FormBuilder, private authService : AuthService, private router: Router) { }
+  constructor(private fb : FormBuilder,
+    private authService : AuthService,
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.formLogin = this.fb.group({
@@ -31,6 +35,10 @@ export class LoginComponent implements OnInit{
       next: (data) => {
         this.authService.loadProfile(data);
         this.router.navigateByUrl('/home');
+        this.toastr.success('Login', 'successfully login', {
+          progressBar: true,
+          closeButton: true,
+        })
       },
       error: (error) => {
         console.log(error);

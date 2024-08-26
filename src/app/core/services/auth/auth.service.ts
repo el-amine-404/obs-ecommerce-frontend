@@ -4,6 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import { Observable, tap } from 'rxjs';
 import { LocalStorageService } from '../storage/local-storage.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private localStorageService: LocalStorageService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   public login(username: string, password: string){
 
@@ -42,6 +44,10 @@ export class AuthService {
     this.accessToken = '';
     this.username = undefined;
     this.roles = undefined;
+    this.toastr.success('Logout', 'successfully logout', {
+      progressBar: true,
+      closeButton: true,
+    })
     this.localStorageService.removeItem('access-token');
     this.router.navigateByUrl('/login');
   }
