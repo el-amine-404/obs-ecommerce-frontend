@@ -5,6 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { LocalStorageService } from '../storage/local-storage.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ROUTES } from '../../constants/routes';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class AuthService {
   agentId: any;
   accessToken !: string;
 
+  // the constants
+  public ROUTES = ROUTES;
 
   constructor(private http: HttpClient,
               private localStorageService: LocalStorageService,
@@ -40,14 +43,14 @@ export class AuthService {
     return this.http.post('http://localhost:8082/auth/login',JSON.stringify(body), options);
   }
 
-  logout(){
+  logout(): void{
     this.isAuthenticated = false;
     this.accessToken = '';
     this.username = undefined;
     this.roles = undefined;
     this.agentId = undefined;
     this.localStorageService.removeItem('access-token');
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl(this.ROUTES.LOGIN.PATH);
     this.toastr.success('Logout', 'successfully logout', {
       progressBar: true,
       closeButton: true,
@@ -73,7 +76,7 @@ export class AuthService {
     let token = this.localStorageService.getItem('access-token');
     if (token){
       this.loadProfile({ 'access-token': token });
-      this.router.navigateByUrl('/home');
+      this.router.navigateByUrl(this.ROUTES.HOME.PATH);
     }
   }
 
