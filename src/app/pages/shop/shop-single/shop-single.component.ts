@@ -6,6 +6,7 @@ import { CurrencyPipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { ROUTES } from '../../../core/constants/routes';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorHandlerService } from '../../../core/services/error/error-handler.service';
 
 @Component({
   selector: 'app-shop-single',
@@ -28,7 +29,8 @@ export class ShopSingleComponent implements OnInit {
     private router: Router,
     private productService: ProductService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private errorHandler: ErrorHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -64,10 +66,7 @@ export class ShopSingleComponent implements OnInit {
             // send notification
             this.toastr.success('Item added to cart!');
           },error: (error) => {
-            if (this.product?.status !== 'AVAILABLE') {
-              this.toastr.error(`product is ${this.product?.status}`, 'error',{progressBar: true, closeButton: true})
-            }
-            console.error('Error adding item to cart', error);
+            this.errorHandler.handleError(error);
           }
         });
   } else {
