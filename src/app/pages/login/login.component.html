@@ -7,19 +7,48 @@
         <div class="card-body">
           <form [formGroup]="formLogin" (ngSubmit)="handleLogin()">
             <div class="mb-3">
-              <label class="form-label" for="username">Username</label>
-              <input type="text" class="form-control" id="username" placeholder="Enter your username"
-                formControlName="username" autocomplete="on">
+              <label class="form-label" for="username">Username <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" [ngClass]="{
+                  'is-invalid':
+                    formLogin.get('username')?.invalid &&
+                    (formLogin.get('username')?.touched ||
+                      formLogin.get('username')?.dirty)
+                }" id="username" placeholder="Enter your username" formControlName="username" autocomplete="on" />
+              @if (formLogin.get('username')?.invalid &&
+              (formLogin.get('username')?.touched ||
+              formLogin.get('username')?.dirty)) {
+              <!-- <p>Please provide a name.</p> -->
+              <div class="invalid-feedback">Please provide a username.</div>
+              }
             </div>
             <div class="mb-3">
-              <label class="form-label" for="password">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter your password"
-                formControlName="password">
+              <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
+              <input type="password" class="form-control" [ngClass]="{
+                  'is-invalid':
+                    formLogin.get('password')?.invalid &&
+                    (formLogin.get('password')?.touched ||
+                      formLogin.get('password')?.dirty)
+                }" id="password" placeholder="Enter your password" formControlName="password"
+                aria-describedby="passwordHelpBlock" />
+              <div id="passwordHelpBlock" class="form-text">
+                <small>
+                  Your password must be 8-20 characters long, contain letters and
+                  numbers, and must not contain spaces, special characters, or
+                  emoji.
+                </small>
+              </div>
+              @if (formLogin.get('password')?.invalid &&
+              (formLogin.get('password')?.touched ||
+              formLogin.get('password')?.dirty)) {
+              <!-- <p>Please provide a name.</p> -->
+              <div class="invalid-feedback">Please provide a password.</div>
+              }
             </div>
-            <button class="bt btn-success">Login</button>
+            <button class="bt btn-success" [disabled]="!formLogin.valid">
+              Login
+            </button>
           </form>
         </div>
-
       </div>
     </div>
   </div>

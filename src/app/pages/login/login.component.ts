@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ErrorHandlerService } from '../../core/services/error/error-handler.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -24,8 +25,8 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     this.formLogin = this.fb.group({
-      username: this.fb.control(''),
-      password: this.fb.control('')
+      username: this.fb.control('', Validators.required),
+      password: this.fb.control('', Validators.required)
     });
   }
 
