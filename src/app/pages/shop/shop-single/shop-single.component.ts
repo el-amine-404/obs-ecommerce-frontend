@@ -62,7 +62,7 @@ export class ShopSingleComponent implements OnInit {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
               this.router.navigate([this.route.snapshot.url.join('/')]));
             // send notification
-            this.toastr.success('Item added to cart!', 'Success', {progressBar: true, closeButton: true});
+            this.toastr.success('Item added to cart!');
           },error: (error) => {
             if (this.product?.status !== 'AVAILABLE') {
               this.toastr.error(`product is ${this.product?.status}`, 'error',{progressBar: true, closeButton: true})
