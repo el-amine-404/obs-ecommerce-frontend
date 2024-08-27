@@ -23,6 +23,7 @@ export class CardItemComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   pageSize: number = 12;
   pageSizeOptions: number[] = [10, 20, 30, 50];
+  isLoading!: boolean;
 
   ngOnInit(): void {
     this.loadProducts();
@@ -44,14 +45,20 @@ export class CardItemComponent implements OnInit, OnDestroy {
 
   loadProducts(): void {
     console.log("Fetching products...");
+    this.isLoading = true;
     this.productService.getAll().subscribe({
       next: (products: Product[]) => {
         this.products = products;
+        this.isLoading = false;
         console.log(this.products);
         console.log("Products fetched successfully");
       },
-      error: (error) => console.log('Error fetching products:', error)
-    });
+      error: (error) => {
+        this.isLoading = false;
+        console.log('Error fetching products:', error)
+      }
+
+      });
   }
 
   onPageSizeChange(event: Event): void {
