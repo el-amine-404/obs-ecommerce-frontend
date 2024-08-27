@@ -15,6 +15,8 @@ export const appConfig: ApplicationConfig = {
       timeOut: 5000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
+      progressBar: true,
+      closeButton: true
     }), // Toastr providers
   ]
 };
