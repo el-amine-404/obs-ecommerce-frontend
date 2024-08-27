@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Product } from '../../../core/model/product.entity';
 import { ProductService } from '../../../core/services/api/product.service';
 import { CurrencyPipe } from '@angular/common';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { ROUTES } from '../../../core/constants/routes';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-shop-single',
@@ -24,8 +25,10 @@ export class ShopSingleComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private productService: ProductService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +58,15 @@ export class ShopSingleComponent implements OnInit {
       subscribe({
           next: (data) => {
             console.log('Item added to cart', data);
+            // reload the page
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+              this.router.navigate([this.route.snapshot.url.join('/')]));
+            // send notification
+            this.toastr.success('Item added to cart!', 'Success', {progressBar: true, closeButton: true});
           },error: (error) => {
+            if (this.product?.status !== 'AVAILABLE') {
+              this.toastr.error(`product is ${this.product?.status}`, 'error',{progressBar: true, closeButton: true})
+            }
             console.error('Error adding item to cart', error);
           }
         });
