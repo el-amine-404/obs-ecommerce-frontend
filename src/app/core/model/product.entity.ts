@@ -8,23 +8,8 @@ export interface Product {
   manufacturer: string;
   seller: string;
   quantityStock: number;
-  category: Category;
+  category: string;
   status: Status;
-}
-
-// ENUMS
-
-export enum Category {
-  LAPTOP = "LAPTOP",
-  MOBILE = "MOBILE",
-  TABLET = "TABLET",
-  DESKTOP = "DESKTOP",
-  PRINTER = "PRINTER",
-  SCANNER = "SCANNER",
-  CAMERA = "CAMERA",
-  SOFTWARE = "SOFTWARE",
-  HARDWARE = "HARDWARE",
-  ACCESSORIES = "ACCESSORIES"
 }
 
 export enum Status {

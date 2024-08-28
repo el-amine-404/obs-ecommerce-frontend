@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { getEnumValues } from '../../../core/utilities/enum-utils';
-import { Category } from '../../../core/model/product.entity';
 import { ProductService } from '../../../core/services/api/product.service';
 import { RouterLink } from '@angular/router';
 
@@ -13,14 +11,14 @@ import { RouterLink } from '@angular/router';
 })
 export class CategoryListComponent {
 
-  categories: string[] = getEnumValues(Category);
+  categoriesWithCounts: { category: string, count: number }[] = [];
   selectedCategories: Set<string> = new Set();
 
   private productService = inject(ProductService);
 
   constructor() {
-    this.productService.categories$.subscribe(categories => {
-      this.selectedCategories = new Set(categories);
+    this.productService.getCategoryCounts().subscribe(categories => {
+      this.categoriesWithCounts = categories;
     });
   }
 

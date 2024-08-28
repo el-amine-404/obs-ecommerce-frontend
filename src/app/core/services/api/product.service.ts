@@ -16,6 +16,7 @@ export class ProductService {
   public categories$: Observable<Set<string>> = this.categoriesSubject.asObservable();
 
   private productUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_ALL}`;
+  private categoryCountUrl = `${environment.apiURL}/${this.API_CONSTANTS.PRODUCT.GET_CATEGORIES_COUNT}`;
 
   private http = inject(HttpClient);
 
@@ -42,5 +43,9 @@ export class ProductService {
     // return this.http.post(url, {});
     let params = new HttpParams().set('productId', productId).set('quantity', quantity);
     return this.http.post<any>(`${environment.apiURL}/shopping-cart/${cartId}/add-item`,null, {params});
+  }
+
+  getCategoryCounts(): Observable<{ category: string, count: number }[]> {
+    return this.http.get<{ category: string, count: number }[]>(this.categoryCountUrl);
   }
 }

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ROUTES } from '../../../core/constants/routes';
 import { OBScontactInformations } from '../../../core/constants/OBScontactInformations';
-import { getEnumValues } from '../../../core/utilities/enum-utils';
-import { Category } from '../../../core/model/product.entity';
+import { ProductService } from '../../../core/services/api/product.service';
 
 @Component({
   selector: 'app-footer',
@@ -14,10 +13,17 @@ import { Category } from '../../../core/model/product.entity';
 })
 export class FooterComponent {
 
-      categories: string[] = getEnumValues(Category);
+      // categories: string[] = getEnumValues(Category);
+      categoriesWithCounts: { category: string, count: number }[] = [];
 
       // the constants
       public ROUTES = ROUTES;
       public OBS_CONTACT_INFORMATIONS = OBScontactInformations;
+
+      constructor(private productService: ProductService) {
+        this.productService.getCategoryCounts().subscribe(categories => {
+          this.categoriesWithCounts = categories;
+        });
+      }
 
 }

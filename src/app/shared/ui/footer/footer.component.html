@@ -27,8 +27,8 @@
       <div class="col-md-4 pt-5">
         <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
         <ul class="list-unstyled text-light footer-link-list">
-          @for (category of categories; track $index){
-          <li><a class="text-decoration-none" [href]=category>{{category}}</a></li>
+          @for (category of categoriesWithCounts; track $index){
+          <li><a class="text-decoration-none" [routerLink]=ROUTES.SHOP.PATH>>{{ category.category }}</a></li>
           }
         </ul>
       </div>
